@@ -13,4 +13,4 @@ class GetTest(LoginRequiredMixin, View):
         if request.user.is_authenticated():
             return render(request, 'get_test.html')
         else:
-            return redirect('users:login')
+            return redirect('users:login.html')
