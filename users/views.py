@@ -78,3 +78,14 @@ class LogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         return redirect('landing_page')
+
+
+class TestView(View):
+    def get(self, request):
+
+        test_form = AuthenticationForm
+        context = {
+            'form': test_form
+        }
+        return render(request, 'get_test.html', context=context)
+

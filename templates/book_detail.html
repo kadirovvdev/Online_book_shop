@@ -3,19 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
-
-
 </head>
 <body>
 <h1>Books Page</h1>
 {% csrf_token %}
 {% for b in books %}
-    <a href="#"> {{ b.title }}</a><br>
-
+    <a href="{% url 'products:book_detail' b.id %}">{{ b.title }}</a><br>
 {% endfor %}
-
 </body>
 </html>
-
-
-
