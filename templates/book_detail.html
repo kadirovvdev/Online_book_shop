@@ -2,13 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Books</title>
+    <title>{{ book.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+        }
+        h4 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .review {
+            margin-top: 20px;
+        }
+        .review h4 {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .review p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .review hr {
+            margin: 10px 0;
+            border: 0;
+            border-top: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
-<h1>Books Page</h1>
-{% csrf_token %}
-{% for b in books %}
-    <a href="{% url 'products:book_detail' b.id %}">{{ b.title }}</a><br>
-{% endfor %}
+<div class="container">
+    <h1>Name: {{ book.title }}</h1>
+    {% if book.image %}
+        <img src="{{ book.image.url }}" alt="{{ book.title }}">
+    {% else %}
+        <p>No image available</p>
+    {% endif %}
+    <h4>Description: {{ book.description }}</h4>
+    <h4>Price: ${{ book.price }}</h4>
+    <h4>Pages: {{ book.page }}</h4>
+    <a href="{% url 'products:book-delete' book.pk %}">Delete</a>
+    <a href="{% url 'products:book-update' book.pk %}" >Update</a><br><br>
+    <a href="{% url 'products:book-list' %}">Back</a>
+    <h2>Reviews</h2>
+    <a href="{% url 'products:add-review' book.pk %}">Add Review</a>
+    {% for review in reviews %}
+        <div class="review">
+            <h4>{{ review.user.username }} | {{ review.star_given }}</h4>
+            <p>{{ review.comment }}</p>
+            <hr>
+        </div>
+    {% endfor %}
+</div>
+
+
 </body>
 </html>

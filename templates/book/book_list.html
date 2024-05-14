@@ -1,21 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Books</title>
+{% extends "base.html" %}
 
+{% block title %} Books {% endblock %}
 
-</head>
-<body>
-<h1>Books Page</h1>
-{% csrf_token %}
-{% for b in books %}
-    <a href="#"> {{ b.title }}</a><br>
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 
-{% endfor %}
+    <body>
+        <h1>Books Page</h1>
+        <p>Welcome to my website</p>
+        <a href="{% url 'products:create-book'%}">Add Book</a>
+        <hr>
 
-</body>
-</html>
-
-
-
+        {% for b in book %}
+            <a href="{% url 'products:book-detail' b.pk %}">{{ b.title }}</a> <br><br>
+        {% endfor %}
+    </body>
+{% endblock content %}

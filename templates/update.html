@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ books.title }}</title>
+    <title>Update Book</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,11 +19,20 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 400px;
         }
         h1 {
             color: #333;
             text-align: center;
             margin-bottom: 20px;
+        }
+        input[type="text"], select, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
         }
         input[type="submit"] {
             background-color: #007bff;
@@ -32,38 +41,34 @@
             padding: 10px 20px;
             cursor: pointer;
             border-radius: 5px;
+            width: 100%;
         }
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             color: #333;
-        }
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        textarea {
-            height: 100px;
-            resize: vertical;
         }
     </style>
 </head>
 <body>
-    <h1>{{ books.title }}</h1>
+    <h1>Update Book</h1>
     <form method="post">
         {% csrf_token %}
-        <label for="id_comment">Comment:</label>
-        {{ add_review_form.comment }}
-        <label for="id_star_given">Star Given:</label>
-        {{ add_review_form.star_given }}
-        <input type="submit" value="Add Review">
+        <label for="id_title">Title:</label>
+        <input type="text" id="id_title" name="title" value="{{ book.title }}">
+        <label for="id_description">Description:</label>
+        <textarea id="id_description" name="description">{{ book.description }}</textarea>
+        <label for="id_price">Price:</label>
+        <input type="text" id="id_price" name="price" value="{{ book.price }}">
+        <label for="id_page">Page:</label>
+        <input type="text" id="id_page" name="page" value="{{ book.page }}">
+        <label for="id_image">Image:</label>
+        <input type="file" id="id_image" name="image">
+        <input type="submit" value="Update">
+        <a href="{% url 'products:book-detail' book.pk  %}">Cancel</a>
     </form>
 </body>
 </html>
