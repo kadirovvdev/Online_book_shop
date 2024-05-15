@@ -78,3 +78,10 @@ class LogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         return redirect('landing_page')
+
+
+
+class ProfileView(View):
+    def get(self, request, pk):
+        user = CustomUser.objects.get(pk=pk)
+        return render(request, 'profile.html', {'user': user})

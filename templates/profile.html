@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .profile-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center; /* Center align the profile picture */
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .user-info {
+            margin-bottom: 10px;
+        }
+        .user-info label {
+            color: #333;
+            font-weight: bold;
+        }
+        .user-info p {
+            margin: 0;
+            color: #666;
+        }
+        .profile-picture {
+            margin-bottom: 20px; /* Add some margin below the profile picture */
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="profile-picture">
+            {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+            {% else %}
+                <p>No profile picture available</p>
+            {% endif %}
+        </div>
+        <div class="user-info">
+            <label for="username">Username:</label>
+            <p>{{ user.username }}</p>
+        </div>
+        <div class="user-info">
+            <label for="email">Email:</label>
+            <p>{{ user.email }}</p>
+        </div>
+        <div class="user-info">
+            <label for="first_name">First Name:</label>
+            <p>{{ user.first_name }}</p>
+        </div>
+        <div class="user-info">
+            <label for="last_name">Last Name:</label>
+            <p>{{ user.last_name }}</p>
+        </div>
+        <div class="user-info">
+            <label for="date_joined">Date Joined:</label>
+            <p>{{ user.date_joined }}</p>
+        </div>
+        <div class="user-info">
+            <label for="last_login">Last Login:</label>
+            <p>{{ user.last_login }}</p>
+        </div>
+        <div class="user-info">
+            <

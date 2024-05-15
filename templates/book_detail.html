@@ -73,8 +73,11 @@
     <a href="{% url 'products:book-update' book.pk %}" >Update</a><br><br>
     <a href="{% url 'products:book-list' %}">Back</a>
     <h2>Reviews</h2>
-    <a href="{% url 'products:add-review' book.pk %}">Add Review</a>
+    <a href="{% url 'products:add-review' book.pk %}">Add Review</a><br><br>
+
     {% for review in reviews %}
+        <a href="{% url 'products:review-update' book.pk %}">Update Review</a>
+
         <div class="review">
             <h4>{{ review.user.username }} | {{ review.star_given }}</h4>
             <p>{{ review.comment }}</p>

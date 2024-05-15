@@ -2,6 +2,8 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, D
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from users.models import CustomUser
 from .forms import BookForm
 
 
@@ -102,3 +104,21 @@ class BookUpdateView(View):
             form.save()
             return redirect('products:book-detail', pk=pk)
         return render(request, 'update.html', {'form': form, 'book': book})
+
+
+
+class ReviewUpdate(View):
+    def get(self, request, pk):
+        review = Review.objects.get(pk=pk)
+        form = AddReviewForm(instance=review)
+        return render(request, 'review_update.html', {'form': form, 'review': review})
+
+    def post(self, request, pk):
+        review = Review.objects.get(pk=pk)
+        form = AddReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect('products:book-detail', pk=review.book.pk)
+        return render(request, 'review_update.html', {'form': form, 'review': review})
+
+

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ books.title }}</title>
+    <title>Update Review</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,11 +19,20 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 400px;
         }
         h1 {
             color: #333;
             text-align: center;
             margin-bottom: 20px;
+        }
+        textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
         }
         input[type="submit"] {
             background-color: #007bff;
@@ -32,45 +41,24 @@
             padding: 10px 20px;
             cursor: pointer;
             border-radius: 5px;
+            width: 100%;
         }
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             color: #333;
-        }
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        textarea {
-            height: 100px;
-            resize: vertical;
         }
     </style>
 </head>
 <body>
-    <<h1>Add Review</h1>
+    <h1>Update Review</h1>
     <form method="post">
         {% csrf_token %}
-        <label for="id_star_given">Star Given:</label>
-        <select id="id_star_given" name="star_given">
-            <option value="1">1 Star</option>
-            <option value="2">2 Stars</option>
-            <option value="3">3 Stars</option>
-            <option value="4">4 Stars</option>
-            <option value="5">5 Stars</option>
-        </select>
-        <label for="id_comment">Comment:</label>
-        <textarea id="id_comment" name="comment"></textarea>
-        <input type="submit" value="Submit">
-
+        {{ form.as_p }}
+        <input type="submit" value="Update">
     </form>
 </body>
 </html>
