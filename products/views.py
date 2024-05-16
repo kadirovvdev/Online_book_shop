@@ -1,7 +1,8 @@
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseForbidden
 
 from users.models import CustomUser
 from .forms import BookForm
@@ -111,14 +112,59 @@ class ReviewUpdate(View):
     def get(self, request, pk):
         review = Review.objects.get(pk=pk)
         form = AddReviewForm(instance=review)
+        if review.user != request.user:
+            return HttpResponseForbidden("Siz boshqa userning izohini o'zgartira olmaysiz!")
         return render(request, 'review_update.html', {'form': form, 'review': review})
 
     def post(self, request, pk):
         review = Review.objects.get(pk=pk)
         form = AddReviewForm(request.POST, instance=review)
+        if review.user != request.user:
+            return HttpResponseForbidden("Siz boshqa userning izohini o'zgartira olmaysiz!")
         if form.is_valid():
             form.save()
             return redirect('products:book-detail', pk=review.book.pk)
         return render(request, 'review_update.html', {'form': form, 'review': review})
+
+
+# class ReviewDelete(View):
+#     def get(self, request, pk):
+#         review = Review.objects.get(pk=pk)
+#         book = review.book
+#         return render(request, 'review_confirm_delete.html', {'review': review, 'book': book})
+#
+#     def post(self, request, pk):
+#         review = Review.objects.get(pk=pk)
+#         review.delete()
+#
+#
+#         return redirect('products:book-detail', pk=review.book.pk)
+
+
+
+
+class ReviewDelete(View):
+    def get(self, request, pk):
+        review = Review.objects.get(pk=pk)
+        if review.user != request.user:
+            return HttpResponseForbidden("Siz boshqa userning izohini o'chira olmaysiz!")
+        return render(request, 'review_confirm_delete.html', {'review': review})
+
+    def post(self, request, pk):
+        review = Review.objects.get(pk=pk)
+        if review.user != request.user:
+            return HttpResponseForbidden("Siz boshqa userning izohini o'chira olmaysiz!")
+        review.delete()
+        return redirect('products:book-detail', pk=review.book.pk)
+
+
+
+
+
+
+
+
+
+
 
 

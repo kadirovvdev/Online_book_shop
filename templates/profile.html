@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+{% extends "base.html" %}
+
+{% block title %} Books {% endblock %}
+
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
@@ -38,8 +43,8 @@
             margin: 0;
             color: #666;
         }
-        .profile-picture {
-            margin-bottom: 20px; /* Add some margin below the profile picture */
+        .profile-picture img {
+            max-width: 200px; /* Limit the width of the profile picture */
         }
     </style>
 </head>
@@ -47,12 +52,13 @@
     <div class="profile-container">
         <h1>User Profile</h1>
         <div class="profile-picture">
-            {% if user.profile_picture %}
-                <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+            {% if user.image %}
+                <img src="{{ user.image.url }}" alt="Profile Picture"/>
             {% else %}
                 <p>No profile picture available</p>
             {% endif %}
         </div>
+
         <div class="user-info">
             <label for="username">Username:</label>
             <p>{{ user.username }}</p>
@@ -78,4 +84,13 @@
             <p>{{ user.last_login }}</p>
         </div>
         <div class="user-info">
-            <
+            <label for="is_active">Is Active:</label>
+            <p>{{ user.is_active }}</p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock content %}
+
+
+

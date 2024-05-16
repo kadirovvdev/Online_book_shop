@@ -76,7 +76,9 @@
     <a href="{% url 'products:add-review' book.pk %}">Add Review</a><br><br>
 
     {% for review in reviews %}
-        <a href="{% url 'products:review-update' book.pk %}">Update Review</a>
+
+        <a href="{% url 'products:review-update' review.pk %}">Update</a><br>
+        <a href="{% url 'products:review-delete' review.pk %}">Delete_this</a><br>
 
         <div class="review">
             <h4>{{ review.user.username }} | {{ review.star_given }}</h4>
