@@ -33,8 +33,8 @@ class Books(models.Model):
     page = models.IntegerField()
     book_lang = models.ForeignKey(Language, on_delete=models.DO_NOTHING)
 
-    # created_at = models.DateField()
-    # updated_at = models.DateField()
+    # created_at = models.DateField(auto_now_add=True, null=True)
+    # updated_at = models.DateField(auto_now_add=True, null=True)
 
     class Meta:
         db_table = 'books'

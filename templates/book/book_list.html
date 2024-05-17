@@ -31,14 +31,12 @@
         }
     </style>
 
-    <body>
-        <h1>Books Page</h1>
-        <p>Welcome to my website</p>
-        <a href="{% url 'products:create-book'%}">Add Book</a>
-        <hr>
+    <h1>Books Page</h1>
+    <p>Welcome to my website</p>
+    <a href="{% url 'products:create-book' %}">Add Book</a>
+    <hr>
 
-        {% for b in book %}
-            <a href="{% url 'products:book-detail' b.pk %}">{{ b.title }}</a> <br><br>
-        {% endfor %}
-    </body>
+    {% for b in books %}
+        <a href="{% url 'products:book-detail' b.pk %}">{{ b.title }}</a> <br><br>
+    {% endfor %}
 {% endblock content %}
